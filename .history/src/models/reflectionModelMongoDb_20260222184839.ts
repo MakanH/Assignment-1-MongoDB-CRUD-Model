@@ -76,22 +76,9 @@ async function addReflection(
 async function getSingleReflection(date: string) {
   if (reflectionsCollection == null)
     throw new DatabaseError("reflectionsCollection is undefined");
-  try {
-    const foundReflection = await reflectionsCollection.findOne({ date: date });
-    if (foundReflection) return foundReflection;
-    else throw new InvalidInputError(`No reflection found on date ${date}`);
-  } catch (err: unknown) {
-    if (err instanceof DatabaseError) {
-      throw err; // rethrow
-    } else if (err instanceof Error) {
-      console.log(err.message);
-      throw new DatabaseError(err.message);
-    } else {
-      throw new DatabaseError(
-        "An unknown error occurred in getSingleReflection. Should never happen.",
-      );
-    }
-  }
+  const foundReflection = await reflectionsCollection.findOne({ date: date });
+  if (foundReflection) return foundReflection;
+  else throw new InvalidInputError(`No reflection found on date ${date}`);
 }
 
 export { initialize, addReflection, getSingleReflection };

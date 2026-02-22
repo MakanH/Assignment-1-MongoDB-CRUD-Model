@@ -88,7 +88,7 @@ async function getSingleReflection(date: string) {
       throw new DatabaseError(err.message);
     } else {
       throw new DatabaseError(
-        "An unknown error occurred in getSingleReflection. Should never happen.",
+        "An unknown error occurred in getSinglePokemon. Should never happen.",
       );
     }
   }
