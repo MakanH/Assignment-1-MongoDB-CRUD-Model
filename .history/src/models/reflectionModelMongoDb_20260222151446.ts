@@ -1,4 +1,3 @@
-import { setServers } from "node:dns";
 import { MongoError, Db, MongoClient, Collection } from "mongodb";
 import type { Document } from "mongodb";
 import { isValid } from "./validateUtils.js";
@@ -6,7 +5,6 @@ import { isValid } from "./validateUtils.js";
 let client: MongoClient;
 let reflectionsCollection: Collection<Document> | undefined;
 
-setServers(["8.8.8.8", "1.1.1.1"]);
 const dbName: string = "reflection_db";
 
 /**
