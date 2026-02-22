@@ -1,0 +1,20 @@
+{
+  "name": "asignment-1",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/MakanH/Assignment-1-MongoDB-CRUD-Model#readme",
+  "bugs": {
+    "url": "https://github.com/MakanH/Assignment-1-MongoDB-CRUD-Model/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MakanH/Assignment-1-MongoDB-CRUD-Model.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
