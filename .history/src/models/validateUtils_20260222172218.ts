@@ -32,7 +32,6 @@ function isValid(
   if (!Number.isInteger(timeSpentMins) || timeSpentMins < 0) {
     throw new InvalidInputError("timeSpentInMins has to be a positive integer");
   }
-  return true;
 }
 
 export { isValid };

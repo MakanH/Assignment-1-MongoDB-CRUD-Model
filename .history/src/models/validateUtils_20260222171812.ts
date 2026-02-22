@@ -19,20 +19,20 @@ function isValid(
     throw new InvalidInputError("No/Empty reflection not allowed");
   }
 
-  if (!Number.isInteger(moodScore) || moodScore < 1 || moodScore > 5) {
-    throw new InvalidInputError(
-      "moodScore has to be an integer between 1 and 5",
-    );
+  const validTypes: string[] = [
+    "Normal",
+    "Grass",
+    "Fire",
+    "Water",
+    "Electric",
+    "Psychic",
+  ];
+
+  if (validTypes.includes(type)) {
+    return true;
   }
 
-  if (!date || date.length === 0) {
-    throw new InvalidInputError("No/Empty date not allowed");
-  }
-
-  if (!Number.isInteger(timeSpentMins) || timeSpentMins < 0) {
-    throw new InvalidInputError("timeSpentInMins has to be a positive integer");
-  }
-  return true;
+  throw new InvalidInputError("Invalid type");
 }
 
 export { isValid };

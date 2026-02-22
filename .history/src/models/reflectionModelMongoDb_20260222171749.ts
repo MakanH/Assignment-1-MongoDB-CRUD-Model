@@ -2,7 +2,6 @@ import { setServers } from "node:dns";
 import { MongoError, Db, MongoClient, Collection } from "mongodb";
 import type { Document } from "mongodb";
 import { isValid } from "./validateUtils.js";
-import { InvalidInputError } from "./InvalidInputError.js";
 
 let client: MongoClient;
 let reflectionsCollection: Collection<Document> | undefined;
@@ -30,31 +29,11 @@ async function initialize(): Promise<void> {
   }
 }
 
-interface Reflection {
-  reflectionText: string;
-  moodScore: number;
-  date: string;
-  timeSpentMins: number;
-}
-
-async function addReflection(
+function addReflection(
   reflectionText: string,
   moodScore: number,
-  date: string,
+  date: date,
   timeSpentMins: number,
-) {
-  if (reflectionsCollection == null)
-    throw new DatabaseError("reflectionsCollection is undefined");
-  if (!isValid(reflectionText, moodScore, date, timeSpentMins))
-    throw new InvalidInputError("A field has an invalid input");
-  const newReflection: Reflection = {
-    reflectionText: reflectionText,
-    moodScore: moodScore,
-    date: date,
-    timeSpentMins: timeSpentMins,
-  };
-  await reflectionsCollection.insertOne(newReflection);
-  return newReflection;
-}
+) {}
 
 export { initialize };
