@@ -66,5 +66,5 @@ async function getSingleReflection(date: string) {
   else throw new InvalidInputError(`No reflection found on date ${date}`);
 }
 
-export { initialize, addReflection, getSingleReflection };
+export { initialize, addReflection };
 export type { Reflection };

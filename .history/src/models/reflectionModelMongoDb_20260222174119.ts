@@ -3,7 +3,6 @@ import { MongoError, Db, MongoClient, Collection } from "mongodb";
 import type { Document } from "mongodb";
 import { isValid } from "./validateUtils.js";
 import { InvalidInputError } from "./InvalidInputError.js";
-import { DatabaseError } from "./DatabaseError.js";
 
 let client: MongoClient;
 let reflectionsCollection: Collection<Reflection> | undefined;
@@ -58,13 +57,5 @@ async function addReflection(
   return newReflection;
 }
 
-async function getSingleReflection(date: string) {
-  if (reflectionsCollection == null)
-    throw new DatabaseError("reflectionsCollection is undefined");
-  const foundReflection = await reflectionsCollection.findOne({ date: date });
-  if (foundReflection) return foundReflection;
-  else throw new InvalidInputError(`No reflection found on date ${date}`);
-}
-
-export { initialize, addReflection, getSingleReflection };
+export { initialize, addReflection };
 export type { Reflection };

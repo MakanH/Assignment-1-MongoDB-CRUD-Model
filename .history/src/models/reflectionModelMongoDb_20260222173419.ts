@@ -3,10 +3,9 @@ import { MongoError, Db, MongoClient, Collection } from "mongodb";
 import type { Document } from "mongodb";
 import { isValid } from "./validateUtils.js";
 import { InvalidInputError } from "./InvalidInputError.js";
-import { DatabaseError } from "./DatabaseError.js";
 
 let client: MongoClient;
-let reflectionsCollection: Collection<Reflection> | undefined;
+let reflectionsCollection: Collection<Document> | undefined;
 
 setServers(["8.8.8.8", "1.1.1.1"]);
 const dbName: string = "reflection_db";
@@ -43,7 +42,7 @@ async function addReflection(
   moodScore: number,
   date: string,
   timeSpentMins: number,
-): Promise<Reflection> {
+) {
   if (reflectionsCollection == null)
     throw new DatabaseError("reflectionsCollection is undefined");
   if (!isValid(reflectionText, moodScore, date, timeSpentMins))
@@ -58,13 +57,5 @@ async function addReflection(
   return newReflection;
 }
 
-async function getSingleReflection(date: string) {
-  if (reflectionsCollection == null)
-    throw new DatabaseError("reflectionsCollection is undefined");
-  const foundReflection = await reflectionsCollection.findOne({ date: date });
-  if (foundReflection) return foundReflection;
-  else throw new InvalidInputError(`No reflection found on date ${date}`);
-}
-
-export { initialize, addReflection, getSingleReflection };
+export { initialize };
 export type { Reflection };
