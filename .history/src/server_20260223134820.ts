@@ -15,7 +15,7 @@ createServer(async function (
   const firstRef = await model.addReflection(
     "3rd reflection added",
     3,
-    "2026-05-31",
+    "2026-05-30",
     50,
   );
   response.write(`\nAdded reflection for date: ${firstRef.date}`);
@@ -45,13 +45,8 @@ createServer(async function (
   );
   const updatedRef = await model.getSingleReflection("2026-05-30");
   response.write(
-    `\nReflection on date ${updatedRef.date} has been changed to "${updatedRef.reflectionText}"`,
+    `Reflection on date ${updatedRef.date} has been changed to ${updatedRef.reflectionText}`,
   );
-
-  //Delete reflection
-  response.write("\nDELETE REFLECTION");
-  const deletedRef = await model.deleteReflection("2027-05-31");
-  response.write("\nDeleted reflection");
 
   response.end("");
 }).listen(port, () => {

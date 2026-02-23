@@ -13,16 +13,16 @@ createServer(async function (
   //Add reflection
   response.write("ADD REFLECTION");
   const firstRef = await model.addReflection(
-    "3rd reflection added",
+    "Its a beautiful day!",
     3,
-    "2026-05-31",
+    "2026-01-30",
     50,
   );
   response.write(`\nAdded reflection for date: ${firstRef.date}`);
 
   //Get single reflection
   response.write("\nGET SINGLE REFLECTION");
-  const gottenRef = await model.getSingleReflection("2026-05-30");
+  const gottenRef = await model.getSingleReflection("2026-01-30");
   response.write(
     `\nReflection for ${gottenRef.date}: ${gottenRef.reflectionText}`,
   );
@@ -38,20 +38,14 @@ createServer(async function (
   //Update single reflection
   response.write("\nUPDATE SINGLE REFLECTION");
   await model.updateSingleReflection(
-    "2026-05-30",
+    "2020-10-10",
     "This is the updated version",
     1,
     30,
   );
-  const updatedRef = await model.getSingleReflection("2026-05-30");
   response.write(
-    `\nReflection on date ${updatedRef.date} has been changed to "${updatedRef.reflectionText}"`,
+    `Reflection on date ${updatedRef.date} has been changed to ${updatedRef.newReflectionText}`,
   );
-
-  //Delete reflection
-  response.write("\nDELETE REFLECTION");
-  const deletedRef = await model.deleteReflection("2027-05-31");
-  response.write("\nDeleted reflection");
 
   response.end("");
 }).listen(port, () => {

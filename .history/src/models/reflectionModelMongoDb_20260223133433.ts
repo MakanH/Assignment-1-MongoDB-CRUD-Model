@@ -163,7 +163,7 @@ async function updateSingleReflection(
         },
       },
     );
-    return result;
+    console.log("Updated reflection with new date " + date);
   } catch (err: unknown) {
     if (err instanceof DatabaseError) {
       throw err;

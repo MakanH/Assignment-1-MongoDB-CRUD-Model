@@ -152,7 +152,7 @@ async function updateSingleReflection(
   }
 
   try {
-    const result = await reflectionsCollection.updateOne(
+    const result = await reflectionsCollection.findOneAndUpdate(
       { date: date },
       {
         $set: {

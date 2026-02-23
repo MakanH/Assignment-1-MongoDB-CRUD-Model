@@ -136,7 +136,7 @@ async function updateSingleReflection(
   newReflectionText: string,
   newMoodScore: number,
   newTimeSpentMins: number,
-) {
+): Promise<Reflection> {
   if (reflectionsCollection == null)
     throw new DatabaseError("reflectionsCollection is undefined");
   const foundReflexion = await reflectionsCollection.findOne({
@@ -152,7 +152,7 @@ async function updateSingleReflection(
   }
 
   try {
-    const result = await reflectionsCollection.updateOne(
+    const result = await reflectionsCollection.findOneAndUpdate(
       { date: date },
       {
         $set: {
