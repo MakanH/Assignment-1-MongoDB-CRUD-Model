@@ -21,21 +21,12 @@ async function initialize(): Promise<void> {
     await client.connect();
     console.log("Connected to MongoDb");
     const db: Db = client.db(dbName);
-    // Check to see if the reflections collection exists
-    let collectionCursor = db.listCollections({ name: "reflections" });
-    let collectionArray = await collectionCursor.toArray();
-    if (collectionArray.length == 0) {
-      // collation specifying case-insensitive collection
-      const collation = { locale: "en", strength: 1 };
-      // No match was found, so create new collection
-      await db.createCollection("reflections", { collation: collation });
-    }
-    reflectionsCollection = db.collection<Reflection>("reflections"); // convenient access to collection
+    reflectionsCollection = db.collection("reflections"); // convenient access to collection
   } catch (err) {
     if (err instanceof MongoError) {
       console.error("MongoDB connection failed:", err.message);
     } else {
-      throw new DatabaseError("Initialization failed: " + err);
+      console.error("Unexpected error:", err);
     }
   }
 }
