@@ -176,20 +176,7 @@ async function deleteReflection(date: string) {
     throw new DatabaseError(`No reflection found for the date ${date}`);
   }
 
-  try {
-    const result = await reflectionsCollection.deleteOne({ date: date });
-  } catch (err: unknown) {
-    if (err instanceof DatabaseError) {
-      throw err;
-    } else if (err instanceof Error) {
-      console.log(err.message);
-      throw new DatabaseError(err.message);
-    } else {
-      throw new DatabaseError(
-        "An unknown error occurred in updateSingleReflection. Should never happen.",
-      );
-    }
-  }
+  const result = await reflectionsCollection.deleteOne({ date: date });
 }
 export {
   initialize,

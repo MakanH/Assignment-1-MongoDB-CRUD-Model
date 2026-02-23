@@ -131,11 +131,11 @@ async function updateSingleReflection(
 ) {
   if (reflectionsCollection == null)
     throw new DatabaseError("reflectionsCollection is undefined");
-  const foundReflexion = await reflectionsCollection.findOne({
+  const firstFoundReflexion = await reflectionsCollection.findOne({
     date: newdate,
   });
 
-  if (!foundReflexion) {
+  if (!firstFoundReflexion) {
     throw new DatabaseError(`No reflection found for the date ${newdate}`);
   }
   try {
@@ -150,9 +150,8 @@ async function updateSingleReflection(
         },
       },
     );
-    console.log("Updated reflection with new date " + newdate);
-  } catch (err: unknown) {
-    if (err instanceof DatabaseError) {
+  } catch (err: unknown){
+   if (err instanceof DatabaseError) {
       throw err;
     } else if (err instanceof Error) {
       console.log(err.message);
@@ -165,38 +164,5 @@ async function updateSingleReflection(
   }
 }
 
-async function deleteReflection(date: string) {
-  if (reflectionsCollection == null)
-    throw new DatabaseError("reflectionsCollection is undefined");
-  const foundReflexion = await reflectionsCollection.findOne({
-    date: date,
-  });
-
-  if (!foundReflexion) {
-    throw new DatabaseError(`No reflection found for the date ${date}`);
-  }
-
-  try {
-    const result = await reflectionsCollection.deleteOne({ date: date });
-  } catch (err: unknown) {
-    if (err instanceof DatabaseError) {
-      throw err;
-    } else if (err instanceof Error) {
-      console.log(err.message);
-      throw new DatabaseError(err.message);
-    } else {
-      throw new DatabaseError(
-        "An unknown error occurred in updateSingleReflection. Should never happen.",
-      );
-    }
-  }
-}
-export {
-  initialize,
-  addReflection,
-  getSingleReflection,
-  getAllReflections,
-  updateSingleReflection,
-  deleteReflection,
-};
+export { initialize, addReflection, getSingleReflection, getAllReflections, updateSingleReflection};
 export type { Reflection };
