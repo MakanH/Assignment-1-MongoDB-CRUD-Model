@@ -136,21 +136,20 @@ async function updateReflections(
   });
 
   if (!firstFoundReflexion) {
-    throw new DatabaseError(`No reflection found for the date ${newdate}`);
+    throw new Error(`No reflection found for the date ${newdate}`);
   }
-  try {
-    const result = await reflectionsCollection.updateOne(
-      { date: newdate },
-      {
-        $set: {
-          date: newdate,
-          reflectionText: newReflectionText,
-          moodScore: newMoodScore,
-          timeSpentMins: newTimeSpentMins,
-        },
+
+  const result = await reflectionsCollection.updateOne(
+    { date: newdate },
+    {
+      $set: {
+        date: newdate,
+        reflectionText: newReflectionText,
+        moodScore: newMoodScore,
+        timeSpentMins: newTimeSpentMins,
       },
-    );
-  } catch {}
+    },
+  );
 }
 
 export { initialize, addReflection, getSingleReflection, getAllReflections };

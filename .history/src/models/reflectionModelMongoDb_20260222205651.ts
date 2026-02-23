@@ -131,26 +131,16 @@ async function updateReflections(
 ) {
   if (reflectionsCollection == null)
     throw new DatabaseError("reflectionsCollection is undefined");
-  const firstFoundReflexion = await reflectionsCollection.findOne({
-    date: newdate,
-  });
-
-  if (!firstFoundReflexion) {
-    throw new DatabaseError(`No reflection found for the date ${newdate}`);
-  }
-  try {
-    const result = await reflectionsCollection.updateOne(
-      { date: newdate },
-      {
-        $set: {
-          date: newdate,
-          reflectionText: newReflectionText,
-          moodScore: newMoodScore,
-          timeSpentMins: newTimeSpentMins,
-        },
+  const result = await reflectionsCollection.updateOne(
+    { date: newdate },
+    {
+      $set: {
+        reflectionText: newReflectionText,
+        moodScore: newMoodScore,
+        timeSpentMins: newTimeSpentMins,
       },
-    );
-  } catch {}
+    },
+  );
 }
 
 export { initialize, addReflection, getSingleReflection, getAllReflections };

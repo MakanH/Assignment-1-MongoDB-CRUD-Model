@@ -123,34 +123,11 @@ async function getAllReflections(): Promise<Reflection[]> {
   }
 }
 
-async function updateReflections(
-  newdate: string,
-  newReflectionText: string,
-  newMoodScore: number,
-  newTimeSpentMins: number,
-) {
+async function updateReflections(date: string) {
   if (reflectionsCollection == null)
-    throw new DatabaseError("reflectionsCollection is undefined");
-  const firstFoundReflexion = await reflectionsCollection.findOne({
-    date: newdate,
-  });
-
-  if (!firstFoundReflexion) {
-    throw new DatabaseError(`No reflection found for the date ${newdate}`);
-  }
-  try {
-    const result = await reflectionsCollection.updateOne(
-      { date: newdate },
-      {
-        $set: {
-          date: newdate,
-          reflectionText: newReflectionText,
-          moodScore: newMoodScore,
-          timeSpentMins: newTimeSpentMins,
-        },
-      },
-    );
-  } catch {}
+    throw new DatabaseError("reflectionsCollection is undefined")
+  const firstFoundReflexion = await reflectionsCollection.findOne({date: date})
+  
 }
 
 export { initialize, addReflection, getSingleReflection, getAllReflections };
