@@ -138,11 +138,6 @@ async function updateSingleReflection(
   if (!foundReflexion) {
     throw new DatabaseError(`No reflection found for the date ${newdate}`);
   }
-
-  if (!isValid(newReflectionText, newMoodScore, newdate, newTimeSpentMins)) {
-    throw new InvalidInputError("A/many fields have an invalid input");
-  }
-
   try {
     const result = await reflectionsCollection.updateOne(
       { date: newdate },
@@ -191,7 +186,7 @@ async function deleteReflection(date: string) {
       throw new DatabaseError(err.message);
     } else {
       throw new DatabaseError(
-        "An unknown error occurred in deleteReflection. Should never happen.",
+        "An unknown error occurred in updateSingleReflection. Should never happen.",
       );
     }
   }

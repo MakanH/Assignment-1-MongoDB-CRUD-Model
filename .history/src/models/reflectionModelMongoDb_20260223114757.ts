@@ -191,7 +191,7 @@ async function deleteReflection(date: string) {
       throw new DatabaseError(err.message);
     } else {
       throw new DatabaseError(
-        "An unknown error occurred in deleteReflection. Should never happen.",
+        "An unknown error occurred in updateSingleReflection. Should never happen.",
       );
     }
   }
